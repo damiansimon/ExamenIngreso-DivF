@@ -1,33 +1,32 @@
-/*debemos alquilar el servicio de transporte para llegar a Mar del Plata con un grupo de personas, de cada persona debemos optener los siguientes datos:
+/*a debemos optener los siguientes datos:
 Nombre,
-Obra Social ("PAMI", "OSDE" o "otras"),
+estado civil ("soltero", "casado" o "viudo"),
 edad( solo mayores de edad, mas de 17),
 temperatura corporal(validar por favor)
 y sexo (validar).
 NOTA:el precio por pasajero es de $600.
+
+
 Se debe informar (solo si corresponde):
-a) La cantidad de personas con OSDE de mas de 60 años.
-b) el nombre y temperatura de la mujer con Pami mas joven.
+//a) La cantidad de personas con estado "viudo" de mas de 60 años.//
+b) el nombre y edad de la mujer soltera mas joven.
 c) cuanto sale el viaje total sin descuento.
-d) si hay mas del 50% de los pasajeros que pertenecen a PAMI, el precio final tiene un descuento del 25%, que solo mostramos si corresponde.*/
+d) si hay mas del 50% de los pasajeros que tiene mas de 60 años , el precio final tiene un descuento del 25%, que solo mostramos si corresponde.*/
 
+function mostrar() {
 
-
-function mostrar()
-{
   let nombre;
-  let obraSocial;
+  let estadoCivil;
   let edad;
   let temperatura;
   let sexo;
   let precioBase = 600;
   let precioBruto;
   let contPasajeros = 0;
-  let contAbueloOsde = 0;
+  let contAbueloViudo = 0;
   let contPasajerosAbu = 0;
-  let nombreJovenPami;
-  let edadJovenPami = 0;
-  let tempJovenPami = 0;
+  let nombreSolteraJoven;
+  let edadSolteraJoven = 0;
   let porcentajeMayores;
   let precioTotal;
   let flag = 0;
@@ -39,9 +38,9 @@ function mostrar()
         nombre = prompt("Error!! Ingrese nombre:").toLowerCase();
       }
 
-    obraSocial = prompt("Ingrese obra social PAMI,OSDE u otras:").toLowerCase();
-      while(obraSocial != "pami" && obraSocial != "osde" && obraSocial != "otras"){
-        obraSocial = prompt("Error!! Ingrese obra social PAMI,OSDE u otras:").toLowerCase();
+    estadoCivil = prompt("Ingrese estado civil soltero,casado o viudo:").toLowerCase();
+      while(estadoCivil != "soltero" && estadoCivil != "casado" && estadoCivil != "viudo"){
+        estadoCivil = prompt("Error!! Ingrese estado civil soltero,casado o viudo:").toLowerCase();
       }    
 
     edad = parseInt(prompt("Ingrese edad (mayor a 17)"));
@@ -50,7 +49,7 @@ function mostrar()
       }
     
     temperatura = parseFloat(prompt("Ingrese temperatura:"));
-      while(isNaN(temperatura) ||temperatura<0){
+      while(isNaN(temperatura)){
         temperatura = parseFloat(prompt("Error!! Ingrese temperatura:"));
       }  
 
@@ -58,22 +57,21 @@ function mostrar()
       while (sexo != 'm' && sexo!= 'f'){
         sexo = prompt("Error!! Ingrese sexo m/f:").toLowerCase();
       }
-	//a) La cantidad de personas con OSDE de mas de 60 años.//
-      if(edad>60 && obraSocial == "osde"){
-        contAbueloOsde = contAbueloOsde + 1;
+//a) La cantidad de personas con estado "viudo" de mas de 60 años.//
+      if(edad>60 && estadoCivil == "viudo"){
+        contAbueloViudo = contAbueloViudo + 1;
       }
-
-	//b) el nombre y temperatura de la mujer con Pami mas joven.//
-      if(obraSocial == "pami" && sexo == 'f' && edadJovenPami<edad){
-        tempJovenPami = temperatura;
-        nombreJovenPami = nombre;
-        
+//b) el nombre y edad de la mujer soltera mas joven.//
+      if(estadoCivil == "soltero" && sexo == 'f'  && edadSolteraJoven<edad){
+        edadSolteraJoven = edad;
+        nombreSolteraJoven = nombre;
+        flag = 1;
       }
-    //c) cuanto sale el viaje total sin descuento.//
+//c) cuanto sale el viaje total sin descuento.//
       contPasajeros = contPasajeros + 1;
     seguir = prompt("Desea ingresar otro pasajero? s/n:");
 
-    //d) si hay mas del 50% de los pasajeros que tiene mas de 60 años , el precio final tiene un descuento del 25%, que solo mostramos si corresponde.*///
+  //  d) si hay mas del 50% de los pasajeros que tiene mas de 60 años , el precio final tiene un descuento del 25%, que solo mostramos si corresponde.*///
       if(edad>60){
       contPasajerosAbu = contPasajerosAbu + 1;
       }
@@ -82,8 +80,8 @@ function mostrar()
   precioBruto = precioBase*contPasajeros;
 
   porcentajeMayores = contPasajerosAbu*100/contPasajeros;
-console.log("A- Hay "+ contAbueloOsde + " mayores de 60 con OSDE.");
-console.log("B- La mujer mas joven con PAMI se llama "+ nombreJovenPami+" y tiene "+tempJovenPami+" ° de temperatura.");
+console.log("A- Hay "+ contAbueloViudo + " mayores de 60 que son viudos.");
+console.log("B- La mujer mas joven se llama "+ nombreSolteraJoven+" y tiene "+edadSolteraJoven+" años.");
 console.log("C- El viaje total sin descuento sale: $ "+ precioBruto);
 
 if(porcentajeMayores>50){
@@ -91,4 +89,6 @@ if(porcentajeMayores>50){
   console.log("D-El precio final con el descuento es de: $  "+precioTotal);
 }
 
+
 }
+
